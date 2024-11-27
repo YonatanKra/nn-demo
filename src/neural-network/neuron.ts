@@ -1,9 +1,10 @@
 export class Neuron {
     weights = new Array(3).fill(0).map(_ => Math.random()*2 - 1);
+    bias = Math.random()*2 - 1;
 
     predict(input: number[]) {
       const weightedSum = input.reduce((acc, inputPoint, index) => 
-        acc + this.weights[index] * inputPoint, 0);
+        acc + this.weights[index] * inputPoint, 0) + this.bias;
       return this.activation(weightedSum);
     }
 
@@ -17,6 +18,7 @@ export class Neuron {
       for (let i = 0; i < this.weights.length; i++) {
         this.weights[i] += input[i]*error;
       }
+      this.bias += error;
       return error;
     }
 
