@@ -9,6 +9,9 @@ import './data-visualizer.css';
 import { addDecisionBoundary, plotData } from './plot/index.js';
 import { Neuron } from '../neural-network/neuron.js';
 
+const WEIGHTS = Array(3).fill(0).map(() => Math.random() * 2 - 1);
+const BIAS = Math.random()*2 - 1;
+
 export class DataVisualizer extends HTMLElement {
     public static observedAttributes = [];
 
@@ -26,6 +29,14 @@ export class DataVisualizer extends HTMLElement {
         return this.shadowRoot?.querySelector('#test');
     }
 
+    get #resetButton() {
+        return this.shadowRoot?.querySelector('#resetWeights');
+    }
+
+    get #trainWithLearningRateButton() {
+        return this.shadowRoot?.querySelector('#trainWithLearningRate');
+    }
+
     get #chartDiv() {
         return this.shadowRoot?.querySelector('#chart');
     }
@@ -40,8 +51,23 @@ export class DataVisualizer extends HTMLElement {
         });
 
         this.#trainButton?.addEventListener('click', () => {
+            this.neuralNetwork.learningRate = 1;
             this.#trainNetwork(traininingData);
         });
+
+        this.#resetButton?.addEventListener('click', () => {
+            this.#resetNetwork();
+          });
+      
+          this.#trainWithLearningRateButton?.addEventListener('click', () => {
+            this.neuralNetwork.learningRate = 0.1;
+            this.#trainNetwork(traininingData);
+          });
+    }
+
+    #resetNetwork() {
+        this.neuralNetwork.weights = [...WEIGHTS];
+        this.neuralNetwork.bias = BIAS;
     }
 
     #showSuccess(successRate: number) {
