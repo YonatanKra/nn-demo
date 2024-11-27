@@ -1,0 +1,17 @@
+{
+  "name": "nn-demo",
+  "version": "1.0.0",
+  "description": "NN Demo for the talk \"Neural Networks in Plain JavaScript\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "vite serve ./src"
+  },
+  "author": "me@yonatankra.com",
+  "license": "MIT",
+  "dependencies": {
+    "numeric": "^1.2.6",
+    "plotly.js-dist-min": "^2.35.2",
+    "vite": "^6.0.0"
+  }
+}
